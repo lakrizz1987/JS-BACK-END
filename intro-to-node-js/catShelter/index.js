@@ -8,7 +8,7 @@ const port = 5000;
 
 http.createServer((req, res) => {
     const urlPath = url.parse(req.url).path;
-    console.log(req.url)
+    
     if (urlPath === '/') {
         fs.readFile("./index.html", (err, data) => {
             if (err) {
