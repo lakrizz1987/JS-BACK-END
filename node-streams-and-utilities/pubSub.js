@@ -17,7 +17,12 @@ function publish(eventName, param) {
     }
 }
 
+function unsubscribe(eventName, callback) {
+    events[eventName] = events[eventName].filter(element => element !== callback);
+}
+
 module.exports = {
     subscribe,
-    publish
+    publish,
+    unsubscribe
 }

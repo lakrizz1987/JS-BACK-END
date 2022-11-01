@@ -29,6 +29,7 @@ http.createServer((req, res) => {
             })
             res.write(data);
             res.end();
+            pubSub.unsubscribe('cat',logger);
         })
 
     } else if (path === '/cat') {
