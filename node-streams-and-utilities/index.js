@@ -6,7 +6,11 @@ const queryString = require('querystring');
 const pubSub = require('./pubSub')
 require('./init');
 
+const logger = (name) => {
+    console.log(`logged cat ${name}`);
+};
 
+pubSub.subscribe('cat', logger);
 
 http.createServer((req, res) => {
     const urlBase = url.parse(req.url)
