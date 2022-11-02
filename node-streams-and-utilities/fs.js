@@ -18,3 +18,4 @@ fs.readdir('.' , (err,data)=>{
 
 
 fs.writeFileSync('./test1.txt', 'Ivo is studing!')
+fs.writeFileSync('./myDir/demo.txt', 'test test')
