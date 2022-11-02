@@ -2,6 +2,7 @@ const http = require('http');
 const url = require('url');
 const fs = require('fs');
 const queryString = require('querystring');
+const eventEmiter = require('./eventEmiter');
 
 const pubSub = require('./pubSub')
 require('./init');
@@ -17,7 +18,7 @@ http.createServer((req, res) => {
     const path = urlBase.pathname;
     const queryObj = queryString.parse(urlBase.query);
 
-    console.log(queryObj)
+    
     if (path === '/' && req.method === 'GET') {
         fs.readFile('./HelloWorld.html', (err, data) => {
             if (err) {
@@ -39,6 +40,7 @@ http.createServer((req, res) => {
         res.write('Hello Cats');
         res.end();
         pubSub.publish('cat', queryObj.name)
+        eventEmiter.emit('cats', 'Koko')
     } else {
         res.writeHead(404)
         res.write(`<h1>No Data!</h1>`)
