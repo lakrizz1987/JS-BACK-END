@@ -27,4 +27,8 @@ app.route('/chain')
         res.send('<h1>Cahin POST</h1>')
     })
 
+
+app.get('/download', (req, res)=>{
+    res.download('./logo-express.png');
+})
 app.listen(5000, () => console.log('Server is running on port 5000...'))
