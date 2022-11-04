@@ -2,6 +2,11 @@ const express = require('express');
 
 const app = express();
 
+app.use((req, res, next) => {
+    console.log('Hii middleware!')
+    next()
+})
+
 app.get('/', (req, res) => {
     res.status(200);
     res.send('<h1>Hello from Express!</h1>');
@@ -38,7 +43,7 @@ app.get('/view', (req, res) => {
 })
 
 app.get('/redirect', (req, res) => {
-        res.redirect('/');
+    res.redirect('/');
 })
 
 app.listen(5000, () => console.log('Server is running on port 5000...'))
