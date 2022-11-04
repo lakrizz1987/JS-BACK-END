@@ -34,7 +34,11 @@ app.get('/download', (req, res) => {
 })
 
 app.get('/view', (req, res) => {
-    res.sendFile('./form.html', {root: __dirname})
+    res.sendFile('./form.html', { root: __dirname })
+})
+
+app.get('/redirect', (req, res) => {
+        res.redirect('/');
 })
 
 app.listen(5000, () => console.log('Server is running on port 5000...'))
