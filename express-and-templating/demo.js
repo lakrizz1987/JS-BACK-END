@@ -28,9 +28,13 @@ app.route('/chain')
     })
 
 
-app.get('/download', (req, res)=>{
+app.get('/download', (req, res) => {
     res.download('./logo-express.png');
     //res.attachment('./logo-express.png', {root: __dirname});
+})
+
+app.get('/view', (req, res) => {
+    res.sendFile('./form.html', {root: __dirname})
 })
 
 app.listen(5000, () => console.log('Server is running on port 5000...'))
