@@ -1,12 +1,15 @@
 const express = require('express');
+const handlebars = require('express-handlebars');
 const checkForIdMiddleware = require('./middlewares/checkForIdMiddleware')
 const app = express();
-const handlebars = require('express-handlebars');
+
+
+app.engine('handlebars', handlebars.engine());
+app.set('view engine', 'handlebars');
 
 app.use('/static', express.static('public'));
 
-app.engine('handlebars', handlebars());
-app.set('view engine', 'handlebars');
+
 
 
 app.use((req, res, next) => {
@@ -49,7 +52,13 @@ app.get('/view', (req, res) => {
 })
 
 app.get('/redirect', (req, res) => {
+
     res.redirect('/');
+})
+
+app.get('/template', (req, res) => {
+    let name = 'Ivo'
+    res.render('title', { layout: false, name })
 })
 
 app.listen(5000, () => console.log('Server is running on port 5000...'))
