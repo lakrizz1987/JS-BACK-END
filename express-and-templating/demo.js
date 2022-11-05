@@ -1,5 +1,5 @@
 const express = require('express');
-
+const checkForIdMiddleware = require('./middlewares/checkForIdMiddleware')
 const app = express();
 
 app.use((req, res, next) => {
@@ -17,11 +17,10 @@ app.post('/create', (req, res) => {
     res.send('<h1>Data created!</h1>')
 })
 
-app.get('/user/:name/:family', (req, res) => {
+app.get('/user/:name?', checkForIdMiddleware, (req, res) => {
     res.status(200);
     const name = req.params.name;
-    const family = req.params.family;
-    res.send(`<h1>Hello ${name.toUpperCase()} ${family.toUpperCase()}</h1>`)
+    res.send(`<h1>Hello ${name.toUpperCase()}</h1>`)
 })
 
 app.route('/chain')
