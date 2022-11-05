@@ -1,7 +1,7 @@
 const fs = require('fs');
 const todosData = require('./collection.json');
 const todos = todosData.slice();
-console.log(todosData)
+
 
 const addTodo = (name) => {
     todos.push(name)
