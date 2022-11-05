@@ -4,6 +4,7 @@
     <input type="submit" value="ENTER">
 </form>
 
+{{#if todos}}
 <div>
     <ul>
         {{#each todos}}
@@ -11,3 +12,4 @@
         {{/each}}
     </ul>
 </div>
+{{/if}}
