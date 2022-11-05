@@ -2,6 +2,8 @@ const express = require('express');
 const checkForIdMiddleware = require('./middlewares/checkForIdMiddleware')
 const app = express();
 
+app.use('/static', express.static('public'))
+
 app.use((req, res, next) => {
     console.log('Hii middleware!')
     next()
