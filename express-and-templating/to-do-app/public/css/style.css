@@ -4,3 +4,13 @@ body{
     max-width: 600px;
     margin: 40px auto;
 }
+
+ul li{
+    list-style: none;
+    margin: 15px;
+}
+
+li:hover{
+    cursor: pointer;
+}
+

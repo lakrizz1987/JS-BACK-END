@@ -1,0 +1,13 @@
+<form action="/create" method="POST">
+    <label for="todo">Enter To-do:</label>
+    <input type="text" id="todo" name="name" />
+    <input type="submit" value="ENTER">
+</form>
+
+<div>
+    <ul>
+        {{#each todos}}
+        <li>{{this}}</li>
+        {{/each}}
+    </ul>
+</div>
