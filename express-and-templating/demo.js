@@ -58,7 +58,7 @@ app.get('/redirect', (req, res) => {
 
 app.get('/template', (req, res) => {
     let name = 'Ivo'
-    res.render('title', { layout: false, name })
+    res.render('title', { name })
 })
 
 app.listen(5000, () => console.log('Server is running on port 5000...'))
