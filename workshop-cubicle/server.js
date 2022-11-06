@@ -1,8 +1,11 @@
-const { application } = require('express');
 const express = require('express');
+
 const configServer = require('./config/config');
+const configHandlebars = require('./config/configHandlebars');
 
 const app = express();
+configHandlebars(app);
+
 
 app.get('/', (req,res)=>{
     res.send('test')
