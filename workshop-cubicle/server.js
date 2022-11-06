@@ -7,11 +7,11 @@ const app = express();
 configHandlebars(app);
 
 
-app.get('/', (req,res)=>{
-    res.send('test')
+app.get('/', (req, res) => {
+    res.render('home', { layout: false })
 })
 
 
 
-app.listen(configServer.PORT, ()=>console.log(`Server is running on port ${configServer.PORT}...`))
+app.listen(configServer.PORT, () => console.log(`Server is running on port ${configServer.PORT}...`))
 
