@@ -8,7 +8,7 @@ configHandlebars(app);
 
 
 app.get('/', (req, res) => {
-    res.render('home', { layout: false })
+    res.render('home')
 })
 
 
