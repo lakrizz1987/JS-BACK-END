@@ -7,6 +7,7 @@ const router = require('./routes');
 const app = express();
 configHandlebars(app);
 
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 app.use(router)
