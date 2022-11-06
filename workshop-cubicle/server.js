@@ -2,15 +2,14 @@ const express = require('express');
 
 const configServer = require('./config/config');
 const configHandlebars = require('./config/configHandlebars');
+const router = require('./routes');
 
 const app = express();
 configHandlebars(app);
 
 app.use(express.static('public'));
 
-app.get('/', (req, res) => {
-    res.render('home')
-})
+app.use(router)
 
 
 
