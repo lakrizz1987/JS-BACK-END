@@ -22,7 +22,7 @@ function addToCollection(data) {
         imageUrl: data.imageUrl,
         difficultyLevel: data.difficultyLevel
     };
-    console.log(newObj)
+    
     allProducts.push(newObj);
 
     return fs.writeFile(__dirname + '/../data/data.json', JSON.stringify(allProducts))

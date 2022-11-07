@@ -5,7 +5,7 @@ const router = Router();
 
 router.get('/', (req, res) => {
     const products = collectionManger.getAll();
-    console.log(products)
+    
     res.render('home', { products: products })
 });
 
