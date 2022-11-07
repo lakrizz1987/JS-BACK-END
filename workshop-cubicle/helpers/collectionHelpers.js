@@ -8,6 +8,12 @@ function getAll() {
     return allProducts;
 }
 
+function getOneByName(name) {
+    
+    const data = allProducts.filter(x => x.name.toLowerCase().includes(name.toLowerCase()) );
+    return data
+}
+
 function getOne(id) {
     const searchedProduct = allProducts.find(x => x.id === id);
     return searchedProduct;
@@ -22,7 +28,7 @@ function addToCollection(data) {
         imageUrl: data.imageUrl,
         difficultyLevel: data.difficultyLevel
     };
-    
+
     allProducts.push(newObj);
 
     return fs.writeFile(__dirname + '/../data/data.json', JSON.stringify(allProducts))
@@ -32,5 +38,6 @@ module.exports = {
     allProducts,
     addToCollection,
     getAll,
-    getOne
+    getOne,
+    getOneByName
 }
