@@ -25,5 +25,6 @@ function addToCollection(data) {
 
 module.exports = {
     allProducts,
-    addToCollection
+    addToCollection,
+    getAll
 }

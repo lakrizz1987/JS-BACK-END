@@ -3,7 +3,7 @@ const express = require('express');
 const configServer = require('./config/config');
 const configHandlebars = require('./config/configHandlebars');
 const router = require('./routes');
-
+const handlebars = require('express-handlebars')
 const app = express();
 configHandlebars(app);
 

@@ -4,17 +4,22 @@ const collectionManger = require('../helpers/collectionHelpers');
 const router = Router();
 
 router.get('/', (req, res) => {
-    res.render('home')
+    const products = collectionManger.getAll();
+    console.log(products)
+    res.render('home', { products: products })
 });
 
 router.get('/create', (req, res) => {
+   
     res.render('create')
 });
 
 router.post('/create', (req, res) => {
-    console.log(req.body)
+
     collectionManger.addToCollection(req.body)
-    res.redirect('/')
+        .then(() => res.redirect('/'))
+        .catch((err) => console.log(err))
+
 });
 
 router.get('/details/:id', (req, res) => {
