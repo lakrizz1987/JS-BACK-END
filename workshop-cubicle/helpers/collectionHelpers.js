@@ -4,6 +4,10 @@ const uniqid = require('uniqid');
 
 const allProducts = products.slice();
 
+function getAll(){
+    return allProducts;
+}
+
 function addToCollection(data) {
 
     const newObj = {
