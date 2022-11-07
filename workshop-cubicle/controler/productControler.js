@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const collectionManger = require('../helpers/collectionHelpers');
 
 const router = Router();
 
@@ -12,6 +13,7 @@ router.get('/create', (req, res) => {
 
 router.post('/create', (req, res) => {
     console.log(req.body)
+    collectionManger.addToCollection(req.body)
     res.redirect('/')
 });
 
