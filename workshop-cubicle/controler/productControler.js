@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
 
 router.get('/search', (req,res)=>{
    // const querryObj = querryString.parse(req.query)
-    console.log(req.query.search)
+    console.log(req.query)
     const filteredData = collectionManger.getOneByName(req.query.search);
     res.render('home', { products: filteredData })
 })
