@@ -23,7 +23,8 @@ router.post('/create', (req, res) => {
 });
 
 router.get('/details/:id', (req, res) => {
-    res.render('details')
+    const cube = collectionManger.getOne(req.params.id)
+    res.render('details', {cube})
 });
 
 router.get('/about', (req, res) => {
