@@ -8,10 +8,23 @@ function getAll() {
     return allProducts;
 }
 
-function getOneByName(name) {
-    
-    const data = allProducts.filter(x => x.name.toLowerCase().includes(name.toLowerCase()) );
-    return data
+function getOneBySearch(querry) {
+    let result = allProducts;
+
+    if (querry.search) {
+
+        result = allProducts.filter(x => x.name.toLowerCase().includes(querry.search.toLowerCase()));
+    };
+
+    if (querry.from) {
+        result = result.filter(x => Number(x.difficultyLevel) >= Number(querry.from))
+    };
+
+    if (querry.to) {
+        result = result.filter(x => Number(x.difficultyLevel) <= Number(querry.to))
+    };
+
+    return result;
 }
 
 function getOne(id) {
@@ -39,5 +52,5 @@ module.exports = {
     addToCollection,
     getAll,
     getOne,
-    getOneByName
+    getOneBySearch
 }
