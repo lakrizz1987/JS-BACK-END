@@ -35,3 +35,4 @@ new Girl({ name: 'Boyana', age: '32', hair: 'blond' }).save()
     */
 //Girl.remove({ name: 'Boyana' }).then(res => console.log(res))    
 
+Girl.updateOne({ _id: '636b8bbc2e74ec9ab64302a2' }, { $set: { age: 38 } }).then(res=>console.log(res))
