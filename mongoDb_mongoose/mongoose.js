@@ -25,4 +25,13 @@ const women = new Girl({ name: 'Moni', age: 32, hair: 'long' })
 
 //Girl.findOne({name:'Moni'}).then(res=>console.log(res))
 
-Girl.count().then(res=>console.log(res))
+//Girl.count().then(res => console.log(res))
+/*
+new Girl({ name: 'Boyana', age: '32', hair: 'blond' }).save()
+    .then(res => {
+        console.log(res)
+    })
+    .catch(err => console.log(err))
+    */
+//Girl.remove({ name: 'Boyana' }).then(res => console.log(res))    
+
