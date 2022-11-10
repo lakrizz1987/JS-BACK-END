@@ -15,6 +15,10 @@ class Cube {
         products.push(this)
         return fs.writeFile(__dirname + '/../data/data.json', JSON.stringify(products))
     }
+
+    static getAll(){
+        return products
+    }
 }
 
 module.exports = Cube;

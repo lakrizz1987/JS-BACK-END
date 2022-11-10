@@ -7,7 +7,7 @@ const uniqid = require('uniqid');
 const router = Router();
 
 router.get('/', (req, res) => {
-    const products = collectionManger.getAll();
+    const products = Cube.getAll();
 
     res.render('home', { products: products })
 });
@@ -29,7 +29,7 @@ router.post('/create', (req, res) => {
         req.body.description,
         req.body.imageUrl,
         req.body.difficultyLevel)
-        
+
     cube.save()
         .then(() => res.redirect('/'))
         .catch((err) => console.log(err))
