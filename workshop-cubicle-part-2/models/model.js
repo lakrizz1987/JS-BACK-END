@@ -3,7 +3,9 @@ const fs = require('fs/promises');
 const uniqid = require('uniqid');
 
 class Model {
+    
     save(){
+        
         products.push(this)
         return fs.writeFile(__dirname + '/../data/data.json', JSON.stringify(products))
     }
