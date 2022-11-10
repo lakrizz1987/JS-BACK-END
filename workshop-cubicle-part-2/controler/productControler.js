@@ -1,6 +1,4 @@
 const { Router } = require('express');
-const collectionManger = require('../helpers/collectionHelpers');
-const querryString = require('querystring');
 const Cube = require('../models/cube')
 const uniqid = require('uniqid');
 
@@ -9,13 +7,14 @@ const router = Router();
 router.get('/', (req, res) => {
     const products = Cube.getAll();
 
-    res.render('home', { products: products })
+    res.render('home', { products: products });
 });
 
 router.get('/search', (req, res) => {
 
-    const filteredData = collectionManger.getOneBySearch(req.query);
-    res.render('home', { products: filteredData })
+    const filteredData = Cube.getOneBySearch(req.query);
+
+    res.render('home', { products: filteredData });
 });
 
 router.get('/create', (req, res) => {
@@ -30,6 +29,7 @@ router.post('/create', (req, res) => {
         req.body.imageUrl,
         req.body.difficultyLevel)
 
+        
     cube.save()
         .then(() => res.redirect('/'))
         .catch((err) => console.log(err))
@@ -37,12 +37,14 @@ router.post('/create', (req, res) => {
 });
 
 router.get('/details/:id', (req, res) => {
-    const cube = Cube.getOne(req.params.id)
+    const cube = Cube.getOne(req.params.id);
+
     res.render('details', { cube })
 });
 
 router.get('/about', (req, res) => {
-    res.render('about')
+
+    res.render('about');
 });
 
 

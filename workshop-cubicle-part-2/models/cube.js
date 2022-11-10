@@ -24,6 +24,25 @@ class Cube {
         const searchedProduct = products.find(x => x.id === id);
         return searchedProduct;
     }
+
+    static getOneBySearch(querry) {
+        let result = products;
+    
+        if (querry.search) {
+    
+            result = result.filter(x => x.name.toLowerCase().includes(querry.search.toLowerCase()));
+        };
+    
+        if (querry.from) {
+            result = result.filter(x => Number(x.difficultyLevel) >= Number(querry.from))
+        };
+    
+        if (querry.to) {
+            result = result.filter(x => Number(x.difficultyLevel) <= Number(querry.to))
+        };
+    
+        return result;
+    }
 }
 
 module.exports = Cube;
