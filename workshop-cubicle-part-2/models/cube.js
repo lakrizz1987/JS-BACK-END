@@ -19,6 +19,11 @@ class Cube {
     static getAll(){
         return products
     }
+
+    static getOne(id){
+        const searchedProduct = products.find(x => x.id === id);
+        return searchedProduct;
+    }
 }
 
 module.exports = Cube;
