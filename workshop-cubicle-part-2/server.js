@@ -5,6 +5,8 @@ const configHandlebars = require('./config/configHandlebars');
 const router = require('./routes');
 const handlebars = require('express-handlebars');
 const app = express();
+
+require('./config/configMongoose')(app);
 configHandlebars(app);
 
 app.use(express.urlencoded({ extended: true }));
