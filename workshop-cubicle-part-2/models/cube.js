@@ -1,6 +1,4 @@
-const products = require('../data/data.json');
-const fs = require('fs/promises');
-const uniqid = require('uniqid');
+
 const Model = require('./model');
 
 class Cube extends Model{
