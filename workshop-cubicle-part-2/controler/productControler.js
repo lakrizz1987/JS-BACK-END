@@ -37,7 +37,7 @@ router.post('/create', (req, res) => {
 router.post('/attach/:id', async (req, res) => {
     const product = await CubeModel.findById(req.params.id);
     const accesory = await AccessoryModel.findById(req.body.accessory);
-    
+
     product.accessoaries.push(accesory);
     product.save();
     res.redirect(`/details/${req.params.id}`)
@@ -47,9 +47,9 @@ router.get('/details/:id', async (req, res) => {
     const cube = await serviceManager.getOne(req.params.id);
     const cubeAttachedAccessoaries = await serviceManager.getCubeAccessoaries(req.params.id)
     const accessoaries = await serviceManager.getAllAccessories(cubeAttachedAccessoaries.accessoaries);
-    
-    
-    res.render('details', { cube, accessoaries , cubeAccessory : cubeAttachedAccessoaries.accessoaries })
+
+
+    res.render('details', { cube, accessoaries, cubeAccessory: cubeAttachedAccessoaries.accessoaries })
 });
 
 router.get('/about', (req, res) => {
