@@ -1,19 +1,21 @@
-const products = require('../data/data.json');
+
 const fs = require('fs/promises');
 const uniqid = require('uniqid');
+const CubeModel = require('../models/CubeSchema')
 
+const products = CubeModel.find().lean();
 const allProducts = products.slice();
 
-function getAll() {
-     return products;
+async function getAll() {
+     return await CubeModel.find().lean()
 }
 
-function getOneBySearch(querry) {
-    let result = allProducts;
+async function getOneBySearch(querry) {
+    let result = await getAll();
 
     if (querry.search) {
 
-        result = allProducts.filter(x => x.name.toLowerCase().includes(querry.search.toLowerCase()));
+        result = result.filter(x => x.name.toLowerCase().includes(querry.search.toLowerCase()));
     };
 
     if (querry.from) {

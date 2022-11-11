@@ -1,18 +1,20 @@
 const { Router } = require('express');
 const Cube = require('../models/cube')
 const uniqid = require('uniqid');
+const CubeModel = require('../models/CubeSchema');
+const serviceManager = require('../helpers/collectionHelpers')
 
 const router = Router();
 
-router.get('/', (req, res) => {
-    const products = Cube.getAll();
-
+router.get('/', async (req, res) => {
+    const products = await serviceManager.getAll();
+    
     res.render('home', { products: products });
 });
 
-router.get('/search', (req, res) => {
+router.get('/search', async (req, res) => {
 
-    const filteredData = Cube.getOneBySearch(req.query);
+    const filteredData = await serviceManager.getOneBySearch(req.query);
 
     res.render('home', { products: filteredData });
 });
@@ -23,11 +25,7 @@ router.get('/create', (req, res) => {
 });
 
 router.post('/create', (req, res) => {
-    const cube = new Cube(uniqid(),
-        req.body.name,
-        req.body.description,
-        req.body.imageUrl,
-        req.body.difficultyLevel)
+    const cube = new CubeModel(req.body)
 
         
     cube.save()
