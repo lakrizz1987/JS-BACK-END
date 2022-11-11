@@ -36,8 +36,9 @@ router.post('/create', (req, res) => {
 
 router.get('/details/:id', async (req, res) => {
     const cube = await serviceManager.getOne(req.params.id);
-
-    res.render('details', { cube })
+    const accessoaries = await serviceManager.getAllAccessories();
+    console.log(accessoaries)
+    res.render('details', { cube , accessoaries})
 });
 
 router.get('/about', (req, res) => {

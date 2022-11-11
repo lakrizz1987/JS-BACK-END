@@ -1,8 +1,12 @@
+const AccessoryModel = require('../models/AccessorySchema')
 
 const CubeModel = require('../models/CubeSchema')
 
 const products = CubeModel.find().lean();
 
+async function getAllAccessories(){
+    return await AccessoryModel.find().lean();
+}
 
 async function getAll() {
      return await CubeModel.find().lean()
@@ -38,5 +42,6 @@ module.exports = {
 
     getAll,
     getOne,
-    getOneBySearch
+    getOneBySearch,
+    getAllAccessories,
 }

@@ -6,6 +6,15 @@
     <p><span>Difficulty level:</span> {{cube.difficultyLevel}}</p>
     <a class="btn" href="/">Back</a>
   </div>
+   <form action='' method="">
+          <label for="accessory">Accessories</label>
+          <select id="accessory" name="accessory">
+            {{#each accessoaries}}
+            <option value="{{_id}}">{{name}}</option>
+            {{/each}}
+          </select>
+          <input type="submit" value="Attach">
+        </form>
   <h2>Accessories</h2>
   <div class="accessories">
     <div class="accessory">
