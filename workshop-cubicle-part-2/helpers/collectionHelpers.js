@@ -29,9 +29,10 @@ async function getOneBySearch(querry) {
     return result;
 }
 
-function getOne(id) {
-    const searchedProduct = allProducts.find(x => x.id === id);
-    return searchedProduct;
+async function getOne(id) {
+    
+    
+    return await CubeModel.findById(id).lean();
 }
 
 function addToCollection(data) {
