@@ -4,12 +4,17 @@ const CubeModel = require('../models/CubeSchema')
 
 const products = CubeModel.find().lean();
 
-async function getAllAccessories(){
+async function getAllAccessories() {
     return await AccessoryModel.find().lean();
 }
 
+async function getCubeAccessoaries(id) {
+    return CubeModel.findById(id).populate('accessoaries').lean()
+    
+}
+
 async function getAll() {
-     return await CubeModel.find().lean()
+    return await CubeModel.find().lean()
 }
 
 async function getOneBySearch(querry) {
@@ -32,7 +37,7 @@ async function getOneBySearch(querry) {
 }
 
 async function getOne(id) {
-    
+
     return await CubeModel.findById(id).lean();
 }
 
@@ -44,4 +49,5 @@ module.exports = {
     getOne,
     getOneBySearch,
     getAllAccessories,
+    getCubeAccessoaries,
 }

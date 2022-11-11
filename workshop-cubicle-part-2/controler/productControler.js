@@ -46,8 +46,10 @@ router.post('/attach/:id', async (req, res) => {
 router.get('/details/:id', async (req, res) => {
     const cube = await serviceManager.getOne(req.params.id);
     const accessoaries = await serviceManager.getAllAccessories();
-    console.log(accessoaries)
-    res.render('details', { cube, accessoaries })
+    const cubeAttachedAccessoaries = await serviceManager.getCubeAccessoaries(req.params.id)
+    
+    
+    res.render('details', { cube, accessoaries , cubeAccessory : cubeAttachedAccessoaries.accessoaries })
 });
 
 router.get('/about', (req, res) => {
