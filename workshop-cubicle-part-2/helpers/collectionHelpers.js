@@ -4,13 +4,13 @@ const CubeModel = require('../models/CubeSchema')
 
 const products = CubeModel.find().lean();
 
-async function getAllAccessories() {
-    return await AccessoryModel.find().lean();
+async function getAllAccessories( params) {
+    return await AccessoryModel.find({ _id: { $nin: params } }).lean();
 }
 
 async function getCubeAccessoaries(id) {
     return CubeModel.findById(id).populate('accessoaries').lean()
-    
+
 }
 
 async function getAll() {

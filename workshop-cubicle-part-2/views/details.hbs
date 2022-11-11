@@ -9,21 +9,27 @@
    <form action='/attach/{{cube._id}}' method="POST">
           <label for="accessory">Accessories</label>
           <select id="accessory" name="accessory">
+
             {{#each accessoaries}}
             <option value="{{_id}}">{{name}}</option>
             {{/each}}
+
           </select>
           <input type="submit" value="Attach">
         </form>
   <h2>Accessories</h2>
   <div class="accessories">
+
     {{#each cubeAccessory}}
+
      <div class="accessory">
       <img src="{{imageUrl}}" alt="stickerName">
       <h3>{{name}}</h3>
       <p>{{description}}</p>
     </div>
+
     {{else}}
+    
     <h3 class="italic">This cube has no accessories yet...</h3>
     
     {{/each}}
