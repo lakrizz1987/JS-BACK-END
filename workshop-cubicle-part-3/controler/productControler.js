@@ -27,7 +27,6 @@ router.get('/create', (req, res) => {
 router.post('/create', (req, res) => {
     const cube = new CubeModel(req.body)
 
-
     cube.save()
         .then(() => res.redirect('/'))
         .catch((err) => console.log(err))
@@ -66,6 +65,10 @@ router.post('/accessories/create', (req, res) => {
 
     accesory.save()
     res.redirect('/')
+})
+
+router.get('/register', (req, res) => {
+    res.render('registerPage')
 })
 
 
