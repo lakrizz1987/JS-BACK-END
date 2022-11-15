@@ -1,18 +1,20 @@
 const { Router } = require('express');
-const Cube = require('../models/cube')
-const uniqid = require('uniqid');
+
+const AccessoryModel = require('../models/AccessorySchema')
+const CubeModel = require('../models/CubeSchema');
+const serviceManager = require('../helpers/collectionHelpers')
 
 const router = Router();
 
-router.get('/', (req, res) => {
-    const products = Cube.getAll();
+router.get('/', async (req, res) => {
+    const products = await serviceManager.getAll();
 
     res.render('home', { products: products });
 });
 
-router.get('/search', (req, res) => {
+router.get('/search', async (req, res) => {
 
-    const filteredData = Cube.getOneBySearch(req.query);
+    const filteredData = await serviceManager.getOneBySearch(req.query);
 
     res.render('home', { products: filteredData });
 });
@@ -23,29 +25,48 @@ router.get('/create', (req, res) => {
 });
 
 router.post('/create', (req, res) => {
-    const cube = new Cube(uniqid(),
-        req.body.name,
-        req.body.description,
-        req.body.imageUrl,
-        req.body.difficultyLevel)
+    const cube = new CubeModel(req.body)
 
-        
+
     cube.save()
         .then(() => res.redirect('/'))
         .catch((err) => console.log(err))
 
 });
 
-router.get('/details/:id', (req, res) => {
-    const cube = Cube.getOne(req.params.id);
+router.post('/attach/:id', async (req, res) => {
+    const product = await CubeModel.findById(req.params.id);
+    const accesory = await AccessoryModel.findById(req.body.accessory);
 
-    res.render('details', { cube })
+    product.accessoaries.push(accesory);
+    product.save();
+    res.redirect(`/details/${req.params.id}`)
+})
+
+router.get('/details/:id', async (req, res) => {
+    const cube = await serviceManager.getOne(req.params.id);
+    const cubeAttachedAccessoaries = await serviceManager.getCubeAccessoaries(req.params.id)
+    const accessoaries = await serviceManager.getAllAccessories(cubeAttachedAccessoaries.accessoaries);
+
+
+    res.render('details', { cube, accessoaries, cubeAccessory: cubeAttachedAccessoaries.accessoaries })
 });
 
 router.get('/about', (req, res) => {
 
     res.render('about');
 });
+
+router.get('/accessories/create', (req, res) => {
+    res.render('createAccessory')
+})
+
+router.post('/accessories/create', (req, res) => {
+    const accesory = new AccessoryModel(req.body);
+
+    accesory.save()
+    res.redirect('/')
+})
 
 
 

@@ -1,19 +1,28 @@
-const products = require('../data/data.json');
-const fs = require('fs/promises');
-const uniqid = require('uniqid');
+const AccessoryModel = require('../models/AccessorySchema')
 
-const allProducts = products.slice();
+const CubeModel = require('../models/CubeSchema')
 
-function getAll() {
-     return products;
+const products = CubeModel.find().lean();
+
+async function getAllAccessories( params) {
+    return await AccessoryModel.find({ _id: { $nin: params } }).lean();
 }
 
-function getOneBySearch(querry) {
-    let result = allProducts;
+async function getCubeAccessoaries(id) {
+    return CubeModel.findById(id).populate('accessoaries').lean()
+
+}
+
+async function getAll() {
+    return await CubeModel.find().lean()
+}
+
+async function getOneBySearch(querry) {
+    let result = await getAll();
 
     if (querry.search) {
 
-        result = allProducts.filter(x => x.name.toLowerCase().includes(querry.search.toLowerCase()));
+        result = result.filter(x => x.name.toLowerCase().includes(querry.search.toLowerCase()));
     };
 
     if (querry.from) {
@@ -27,30 +36,18 @@ function getOneBySearch(querry) {
     return result;
 }
 
-function getOne(id) {
-    const searchedProduct = allProducts.find(x => x.id === id);
-    return searchedProduct;
+async function getOne(id) {
+
+    return await CubeModel.findById(id).lean();
 }
 
-function addToCollection(data) {
 
-    const newObj = {
-        id: uniqid(),
-        name: data.name,
-        description: data.description,
-        imageUrl: data.imageUrl,
-        difficultyLevel: data.difficultyLevel
-    };
-
-    allProducts.push(newObj);
-
-    return fs.writeFile(__dirname + '/../data/data.json', JSON.stringify(allProducts))
-}
 
 module.exports = {
-    allProducts,
-    addToCollection,
+
     getAll,
     getOne,
-    getOneBySearch
+    getOneBySearch,
+    getAllAccessories,
+    getCubeAccessoaries,
 }
