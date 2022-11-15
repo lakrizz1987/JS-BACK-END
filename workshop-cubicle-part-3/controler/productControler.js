@@ -71,6 +71,10 @@ router.get('/register', (req, res) => {
     res.render('registerPage')
 })
 
+router.get('/login', (req, res) => {
+    res.render('loginPage')
+})
+
 
 
 module.exports = router;
