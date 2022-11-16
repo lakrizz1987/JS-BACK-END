@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 
 const saltRounds = 3;
 
-const saveUserToDb = async (data) => {
+const registerUserToDb = async (data) => {
     const { username, password, repeatPassword } = data;
     if (password != repeatPassword) {
         throw { message: 'Username or password is invalid' }
@@ -37,5 +37,5 @@ const saveUserToDb = async (data) => {
 }
 
 module.exports = {
-    saveUserToDb
+    registerUserToDb
 }

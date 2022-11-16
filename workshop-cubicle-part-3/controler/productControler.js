@@ -76,7 +76,7 @@ router.get('/register', (req, res) => {
 router.post('/register', async (req, res) => {
    
     try {
-        const savedUser = await authService.saveUserToDb(req.body)
+        const savedUser = await authService.registerUserToDb(req.body)
         res.render('loginPage');
     } catch(err) {
         res.render('registerPage', {err})
