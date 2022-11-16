@@ -3,6 +3,7 @@ const { Router } = require('express');
 const AccessoryModel = require('../models/AccessorySchema')
 const CubeModel = require('../models/CubeSchema');
 const serviceManager = require('../helpers/collectionHelpers')
+const authService = require('../helpers/authService');
 
 const router = Router();
 
@@ -68,7 +69,19 @@ router.post('/accessories/create', (req, res) => {
 })
 
 router.get('/register', (req, res) => {
+
     res.render('registerPage')
+})
+
+router.post('/register', async (req, res) => {
+   
+    try {
+        const savedUser = await authService.saveUserToDb(req.body)
+        res.render('loginPage');
+    } catch(err) {
+        res.render('registerPage', {err})
+    }
+
 })
 
 router.get('/login', (req, res) => {
