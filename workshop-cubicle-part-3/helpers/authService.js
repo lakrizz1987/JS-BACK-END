@@ -1,5 +1,4 @@
-const UserSchema = require('../models/UserSchema');
-const mongoose = require('mongoose');
+const UserModel = require('../models/UserSchema');
 const bcrypt = require('bcrypt');
 
 const saltRounds = 3;
@@ -11,7 +10,7 @@ const saveUserToDb = async (data) => {
 
     }
 
-    const userNameCheck = await UserSchema.findOne({ username: username }).lean() || false;
+    const userNameCheck = await UserModel.findOne({ username: username }).lean() || false;
 
     if (userNameCheck.username === username) {
         throw { message: 'Username allready exist!' }
@@ -26,7 +25,7 @@ const saveUserToDb = async (data) => {
             bcrypt.hash(password, salt, function (err, hash) {
                 // Store hash in your password DB.
 
-                const user = new UserSchema({ username, password: hash });
+                const user = new UserModel({ username, password: hash });
                 user.save();
             });
         });
