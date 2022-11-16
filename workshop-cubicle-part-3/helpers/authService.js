@@ -1,5 +1,7 @@
 const UserModel = require('../models/UserSchema');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const { SECRET } = require('../config/config');
 
 const saltRounds = 3;
 
@@ -18,10 +20,10 @@ const registerUserToDb = async (data) => {
     } else {
 
         bcrypt.genSalt(saltRounds, function (err, salt) {
-            if(err){
-                throw {message: 'Something is wrong!'}
+            if (err) {
+                throw { message: 'Something is wrong!' }
             }
-            
+
             bcrypt.hash(password, salt, function (err, hash) {
                 // Store hash in your password DB.
 
@@ -36,6 +38,24 @@ const registerUserToDb = async (data) => {
 
 }
 
+const loginUser = async (data) => {
+    const { username, password } = data;
+    const searchedUser = await UserModel.findOne({ username });
+
+    if (!searchedUser) throw { message: 'No user in Db!' }
+
+    const isValidPassword = await bcrypt.compare(password, searchedUser.password)
+
+    if (isValidPassword) {
+        const token = jwt.sign({ _id: data._id }, SECRET);
+        return token
+    }else{
+        throw { message: 'Wrong password!'}
+    }
+
+}
+
 module.exports = {
-    registerUserToDb
+    registerUserToDb,
+    loginUser
 }

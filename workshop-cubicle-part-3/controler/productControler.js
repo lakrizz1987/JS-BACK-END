@@ -74,18 +74,28 @@ router.get('/register', (req, res) => {
 })
 
 router.post('/register', async (req, res) => {
-   
+
     try {
         const savedUser = await authService.registerUserToDb(req.body)
         res.render('loginPage');
-    } catch(err) {
-        res.render('registerPage', {err})
+    } catch (err) {
+        res.render('registerPage', { err })
     }
 
 })
 
 router.get('/login', (req, res) => {
     res.render('loginPage')
+})
+
+router.post('/login', async (req, res) => {
+    try {
+        const token = await authService.loginUser(req.body);
+        console.log(token)
+        res.end()
+    } catch (error) {
+        res.render('loginPage', { error })
+    }
 })
 
 
