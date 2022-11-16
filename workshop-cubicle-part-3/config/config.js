@@ -1,9 +1,11 @@
 const configServer = {
     dev: {
-        'PORT': 5000
+        'PORT': 5000,
+        'SECRET': 'ralphunek'
     },
     prod: {
-        'PORT': 80
+        'PORT': 80,
+        'SECRET': 'ralphunek'
     }
 };
 
