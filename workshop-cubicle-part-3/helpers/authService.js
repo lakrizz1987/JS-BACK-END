@@ -49,6 +49,7 @@ const loginUser = async (data) => {
     if (isValidPassword) {
         const token = jwt.sign({ _id: data._id }, SECRET);
         return token
+        
     }else{
         throw { message: 'Wrong password!'}
     }

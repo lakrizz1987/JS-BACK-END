@@ -91,8 +91,8 @@ router.get('/login', (req, res) => {
 router.post('/login', async (req, res) => {
     try {
         const token = await authService.loginUser(req.body);
-        console.log(token)
-        res.end()
+        res.cookie('SESSION', token);
+        res.redirect('/')
     } catch (error) {
         res.render('loginPage', { error })
     }
