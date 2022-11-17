@@ -6,7 +6,7 @@ const router = Router();
 
 router.use('/', productControler);
 
-router.get('*', (req,res)=>{
+router.get('*', (req, res) => {
     res.render('404')
 });
 

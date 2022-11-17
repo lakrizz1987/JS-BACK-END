@@ -5,11 +5,14 @@ const CubeModel = require('../models/CubeSchema');
 const serviceManager = require('../helpers/collectionHelpers')
 const authService = require('../helpers/authService');
 
+const isGuest = require('../middlewares/isGuest');
+const isAuthenticated = require('../middlewares/isAuthenticated')
+
 const router = Router();
 
 router.get('/', async (req, res) => {
     const products = await serviceManager.getAll();
-
+    
     res.render('home', { products: products });
 });
 
@@ -20,12 +23,12 @@ router.get('/search', async (req, res) => {
     res.render('home', { products: filteredData });
 });
 
-router.get('/create', (req, res) => {
+router.get('/create',isAuthenticated, (req, res) => {
 
     res.render('create')
 });
 
-router.post('/create', (req, res) => {
+router.post('/create',isAuthenticated, (req, res) => {
     const cube = new CubeModel(req.body)
 
     cube.save()
@@ -57,23 +60,23 @@ router.get('/about', (req, res) => {
     res.render('about');
 });
 
-router.get('/accessories/create', (req, res) => {
+router.get('/accessories/create', isAuthenticated, (req, res) => {
     res.render('createAccessory')
 })
 
-router.post('/accessories/create', (req, res) => {
+router.post('/accessories/create',isAuthenticated, (req, res) => {
     const accesory = new AccessoryModel(req.body);
 
     accesory.save()
     res.redirect('/')
 })
 
-router.get('/register', (req, res) => {
+router.get('/register', isGuest, (req, res) => {
 
     res.render('registerPage')
 })
 
-router.post('/register', async (req, res) => {
+router.post('/register', isGuest, async (req, res) => {
 
     try {
         const savedUser = await authService.registerUserToDb(req.body)
@@ -84,11 +87,11 @@ router.post('/register', async (req, res) => {
 
 })
 
-router.get('/login', (req, res) => {
+router.get('/login',isGuest, (req, res) => {
     res.render('loginPage')
 })
 
-router.post('/login', async (req, res) => {
+router.post('/login',isGuest, async (req, res) => {
     try {
         const token = await authService.loginUser(req.body);
         res.cookie('SESSION', token);

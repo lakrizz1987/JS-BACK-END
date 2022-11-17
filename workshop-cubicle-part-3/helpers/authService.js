@@ -39,15 +39,17 @@ const registerUserToDb = async (data) => {
 }
 
 const loginUser = async (data) => {
+    
     const { username, password } = data;
     const searchedUser = await UserModel.findOne({ username });
-
+    
     if (!searchedUser) throw { message: 'No user in Db!' }
 
     const isValidPassword = await bcrypt.compare(password, searchedUser.password)
 
     if (isValidPassword) {
-        const token = jwt.sign({ _id: data._id }, SECRET);
+        
+        const token = jwt.sign({ _id: searchedUser._id , role: ['admin'] }, SECRET);
         return token
         
     }else{
