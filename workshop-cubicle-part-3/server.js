@@ -14,8 +14,8 @@ configHandlebars(app);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.set('views', './views');
-app.use(cookieParser())
-app.use(Auth())
+app.use(cookieParser());
+app.use(Auth());
 
 app.use(router);
 

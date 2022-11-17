@@ -37,7 +37,7 @@ router.post('/create',isAuthenticated, (req, res) => {
 
 });
 
-router.post('/attach/:id', async (req, res) => {
+router.post('/attach/:id',isAuthenticated, async (req, res) => {
     const product = await CubeModel.findById(req.params.id);
     const accesory = await AccessoryModel.findById(req.body.accessory);
 
