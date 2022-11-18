@@ -12,7 +12,7 @@ const router = Router();
 
 router.get('/', async (req, res) => {
     const products = await serviceManager.getAll();
-    
+
     res.render('home', { products: products });
 });
 
@@ -106,6 +106,14 @@ router.get('/logout', (req, res) => {
     res.locals.user = {};
     res.locals.isLoged = false;
     res.redirect('/')
+})
+
+router.get('/edit/:productId', (req, res) => {
+    res.render('edit')
+})
+
+router.get('/delete/:productId', (req, res) => {
+    res.render('delete')
 })
 
 
