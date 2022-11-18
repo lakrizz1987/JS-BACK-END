@@ -48,13 +48,26 @@ router.post('/attach/:id', isAuthenticated, async (req, res) => {
     res.redirect(`/details/${req.params.id}`)
 })
 
+
+
+
+
 router.get('/details/:id', async (req, res) => {
     const cube = await serviceManager.getOne(req.params.id);
     const cubeAttachedAccessoaries = await serviceManager.getCubeAccessoaries(req.params.id)
     const accessoaries = await serviceManager.getAllAccessories(cubeAttachedAccessoaries.accessoaries);
+   
+    let userIsOwner = null;
+    if (req.user) {
+        userIsOwner = cube.creator == req.user._id
 
+    }
 
-    res.render('details', { cube, accessoaries, cubeAccessory: cubeAttachedAccessoaries.accessoaries })
+    res.render('details', {
+        cube, accessoaries,
+        cubeAccessory: cubeAttachedAccessoaries.accessoaries,
+        userIsOwner
+    })
 });
 
 router.get('/about', (req, res) => {
