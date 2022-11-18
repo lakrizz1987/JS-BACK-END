@@ -6,7 +6,8 @@ const serviceManager = require('../helpers/collectionHelpers')
 const authService = require('../helpers/authService');
 
 const isGuest = require('../middlewares/isGuest');
-const isAuthenticated = require('../middlewares/isAuthenticated')
+const isAuthenticated = require('../middlewares/isAuthenticated');
+
 
 const router = Router();
 
@@ -29,7 +30,8 @@ router.get('/create', isAuthenticated, (req, res) => {
 });
 
 router.post('/create', isAuthenticated, (req, res) => {
-    const cube = new CubeModel(req.body)
+    const userId = req.user._id;
+    const cube = new CubeModel({ ...req.body, creator: userId })
 
     cube.save()
         .then(() => res.redirect('/'))
@@ -114,10 +116,22 @@ router.get('/edit/:productId', async (req, res) => {
     res.render('edit', cube)
 });
 
+router.post('/edit/:id', async (req, res) => {
+
+    await CubeModel.findByIdAndUpdate({ _id: req.params.id }, { ...req.body });
+    res.redirect(`/details/${req.params.id}`)
+});
+
 router.get('/delete/:productId', async (req, res) => {
     const cube = await serviceManager.getOne(req.params.productId);
 
-    res.render('delete',cube)
+    res.render('delete', cube)
+});
+
+router.post('/delete/:id', async (req, res) => {
+
+    await CubeModel.findByIdAndDelete({ _id: req.params.id });
+    res.redirect(`/`)
 });
 
 
