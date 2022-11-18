@@ -112,13 +112,13 @@ router.get('/edit/:productId', async (req, res) => {
     const cube = await serviceManager.getOne(req.params.productId);
 
     res.render('edit', cube)
-})
+});
 
 router.get('/delete/:productId', async (req, res) => {
     const cube = await serviceManager.getOne(req.params.productId);
 
     res.render('delete',cube)
-})
+});
 
 
 
