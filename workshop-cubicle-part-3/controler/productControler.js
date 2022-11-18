@@ -12,7 +12,7 @@ const router = Router();
 
 router.get('/', async (req, res) => {
     const products = await serviceManager.getAll();
-
+    console.log(res.locals)
     res.render('home', { products: products });
 });
 
@@ -102,7 +102,9 @@ router.post('/login', isGuest, async (req, res) => {
 })
 
 router.get('/logout', (req, res) => {
-    res.clearCookie('SESSION')
+    res.clearCookie('SESSION');
+    res.locals.user = {};
+    res.locals.isLoged = false;
     res.redirect('/')
 })
 

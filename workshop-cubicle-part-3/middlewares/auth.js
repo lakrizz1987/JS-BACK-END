@@ -10,7 +10,9 @@ module.exports = function () {
                     res.clearCookie('SESSION')
                 }else{
 
-                    req.user = decoded
+                    req.user = decoded;
+                    res.locals.user = decoded;
+                    res.locals.isLoged = true;
                 }
 
             })
