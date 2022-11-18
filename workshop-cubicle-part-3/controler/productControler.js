@@ -12,7 +12,7 @@ const router = Router();
 
 router.get('/', async (req, res) => {
     const products = await serviceManager.getAll();
-    console.log(res.locals)
+    
     res.render('home', { products: products });
 });
 

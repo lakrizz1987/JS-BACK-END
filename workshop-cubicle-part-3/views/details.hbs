@@ -5,36 +5,38 @@
     <p><span>Description:</span> {{cube.description}}</p>
     <p><span>Difficulty level:</span> {{cube.difficultyLevel}}</p>
     <a class="btn" href="/">Back</a>
+    <a class="btn" href="/edit/{{cube._id}}">Edit</a>
+    <a class="btn" href="/delete/{{cube._id}}">Delete</a>
   </div>
-   <form action='/attach/{{cube._id}}' method="POST">
-          <label for="accessory">Accessories</label>
-          <select id="accessory" name="accessory">
+  <form action='/attach/{{cube._id}}' method="POST">
+    <label for="accessory">Accessories</label>
+    <select id="accessory" name="accessory">
 
-            {{#each accessoaries}}
-            <option value="{{_id}}">{{name}}</option>
-            {{/each}}
+      {{#each accessoaries}}
+      <option value="{{_id}}">{{name}}</option>
+      {{/each}}
 
-          </select>
-          <input type="submit" value="Attach">
-        </form>
+    </select>
+    <input type="submit" value="Attach">
+  </form>
   <h2>Accessories</h2>
   <div class="accessories">
 
     {{#each cubeAccessory}}
 
-     <div class="accessory">
+    <div class="accessory">
       <img src="{{imageUrl}}" alt="stickerName">
       <h3>{{name}}</h3>
       <p>{{description}}</p>
     </div>
 
     {{else}}
-    
+
     <h3 class="italic">This cube has no accessories yet...</h3>
-    
+
     {{/each}}
-   
-    
-    
+
+
+
   </div>
 </main>
