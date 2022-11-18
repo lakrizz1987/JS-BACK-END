@@ -110,25 +110,36 @@ router.get('/logout', (req, res) => {
     res.redirect('/')
 })
 
-router.get('/edit/:productId', async (req, res) => {
+router.get('/edit/:productId', isAuthenticated, async (req, res) => {
     const cube = await serviceManager.getOne(req.params.productId);
 
-    res.render('edit', cube)
+    if (cube.creator != req.user._id) {
+
+        res.redirect('/')
+    } else {
+        res.render('edit', cube)
+    }
+
 });
 
-router.post('/edit/:id', async (req, res) => {
+router.post('/edit/:id', isAuthenticated, async (req, res) => {
 
     await CubeModel.findByIdAndUpdate({ _id: req.params.id }, { ...req.body });
     res.redirect(`/details/${req.params.id}`)
 });
 
-router.get('/delete/:productId', async (req, res) => {
+router.get('/delete/:productId', isAuthenticated, async (req, res) => {
     const cube = await serviceManager.getOne(req.params.productId);
+    if (cube.creator != req.user._id) {
 
-    res.render('delete', cube)
+        res.redirect('/')
+    } else {
+
+        res.render('delete', cube)
+    }
 });
 
-router.post('/delete/:id', async (req, res) => {
+router.post('/delete/:id', isAuthenticated, async (req, res) => {
 
     await CubeModel.findByIdAndDelete({ _id: req.params.id });
     res.redirect(`/`)
