@@ -12,7 +12,7 @@ const router = Router();
 
 router.get('/', async (req, res) => {
     const products = await serviceManager.getAll();
-    
+
     res.render('home', { products: products });
 });
 
@@ -23,12 +23,12 @@ router.get('/search', async (req, res) => {
     res.render('home', { products: filteredData });
 });
 
-router.get('/create',isAuthenticated, (req, res) => {
+router.get('/create', isAuthenticated, (req, res) => {
 
     res.render('create')
 });
 
-router.post('/create',isAuthenticated, (req, res) => {
+router.post('/create', isAuthenticated, (req, res) => {
     const cube = new CubeModel(req.body)
 
     cube.save()
@@ -37,7 +37,7 @@ router.post('/create',isAuthenticated, (req, res) => {
 
 });
 
-router.post('/attach/:id',isAuthenticated, async (req, res) => {
+router.post('/attach/:id', isAuthenticated, async (req, res) => {
     const product = await CubeModel.findById(req.params.id);
     const accesory = await AccessoryModel.findById(req.body.accessory);
 
@@ -64,7 +64,7 @@ router.get('/accessories/create', isAuthenticated, (req, res) => {
     res.render('createAccessory')
 })
 
-router.post('/accessories/create',isAuthenticated, (req, res) => {
+router.post('/accessories/create', isAuthenticated, (req, res) => {
     const accesory = new AccessoryModel(req.body);
 
     accesory.save()
@@ -87,11 +87,11 @@ router.post('/register', isGuest, async (req, res) => {
 
 })
 
-router.get('/login',isGuest, (req, res) => {
+router.get('/login', isGuest, (req, res) => {
     res.render('loginPage')
 })
 
-router.post('/login',isGuest, async (req, res) => {
+router.post('/login', isGuest, async (req, res) => {
     try {
         const token = await authService.loginUser(req.body);
         res.cookie('SESSION', token);
@@ -99,6 +99,11 @@ router.post('/login',isGuest, async (req, res) => {
     } catch (error) {
         res.render('loginPage', { error })
     }
+})
+
+router.get('/logout', (req, res) => {
+    res.clearCookie('SESSION')
+    res.redirect('/')
 })
 
 
