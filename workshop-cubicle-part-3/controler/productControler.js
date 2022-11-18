@@ -108,12 +108,16 @@ router.get('/logout', (req, res) => {
     res.redirect('/')
 })
 
-router.get('/edit/:productId', (req, res) => {
-    res.render('edit')
+router.get('/edit/:productId', async (req, res) => {
+    const cube = await serviceManager.getOne(req.params.productId);
+
+    res.render('edit', cube)
 })
 
-router.get('/delete/:productId', (req, res) => {
-    res.render('delete')
+router.get('/delete/:productId', async (req, res) => {
+    const cube = await serviceManager.getOne(req.params.productId);
+
+    res.render('delete',cube)
 })
 
 
