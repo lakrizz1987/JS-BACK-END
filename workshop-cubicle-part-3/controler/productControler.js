@@ -56,7 +56,7 @@ router.get('/details/:id', async (req, res) => {
     const cube = await serviceManager.getOne(req.params.id);
     const cubeAttachedAccessoaries = await serviceManager.getCubeAccessoaries(req.params.id)
     const accessoaries = await serviceManager.getAllAccessories(cubeAttachedAccessoaries.accessoaries);
-   
+
     let userIsOwner = null;
     if (req.user) {
         userIsOwner = cube.creator == req.user._id
@@ -153,8 +153,14 @@ router.get('/delete/:productId', isAuthenticated, async (req, res) => {
 });
 
 router.post('/delete/:id', isAuthenticated, async (req, res) => {
+    try {
+        await CubeModel.findByIdAndDelete({ _id: req.params.id });
 
-    await CubeModel.findByIdAndDelete({ _id: req.params.id });
+    } catch (error) {
+
+        console.log(err)
+    }
+    
     res.redirect(`/`)
 });
 
