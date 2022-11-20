@@ -1,9 +1,9 @@
 const UserModel = require('../models/UserSchema');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { SECRET } = require('../config/config');
+const { SECRET, SALT_ROUNDS } = require('../config/config');
 
-const saltRounds = 3;
+
 
 const registerUserToDb = async (data) => {
     const { username, password, repeatPassword } = data;
@@ -19,7 +19,7 @@ const registerUserToDb = async (data) => {
 
     } else {
 
-        bcrypt.genSalt(saltRounds, function (err, salt) {
+        bcrypt.genSalt(SALT_ROUNDS, function (err, salt) {
             if (err) {
                 throw { message: 'Something is wrong!' }
             }
