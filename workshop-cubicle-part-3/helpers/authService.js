@@ -19,7 +19,7 @@ const registerUserToDb = async (data) => {
 
     } else {
 
-        bcrypt.genSalt(SALT_ROUNDS, function (err, salt) {
+       /* bcrypt.genSalt(SALT_ROUNDS, function (err, salt) {
             if (err) {
                 throw { message: 'Something is wrong!' }
             }
@@ -27,10 +27,14 @@ const registerUserToDb = async (data) => {
             bcrypt.hash(password, salt, function (err, hash) {
                 // Store hash in your password DB.
 
-                const user = new UserModel({ username, password: hash });
+                const user = new UserModel({ username, password:hash});
                 user.save();
             });
-        });
+        }); */
+
+        
+        const user = new UserModel({ username, password});
+        user.save();
 
 
     }
