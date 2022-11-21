@@ -4,6 +4,7 @@ const AccessoryModel = require('../models/AccessorySchema')
 const CubeModel = require('../models/CubeSchema');
 const serviceManager = require('../helpers/collectionHelpers')
 const authService = require('../helpers/authService');
+const validator = require('validator');
 
 const isGuest = require('../middlewares/isGuest');
 const isAuthenticated = require('../middlewares/isAuthenticated');
@@ -56,7 +57,7 @@ router.get('/details/:id', async (req, res) => {
     const cube = await serviceManager.getOne(req.params.id);
     const cubeAttachedAccessoaries = await serviceManager.getCubeAccessoaries(req.params.id)
     const accessoaries = await serviceManager.getAllAccessories(cubeAttachedAccessoaries.accessoaries);
-   
+
     let userIsOwner = null;
     if (req.user) {
         userIsOwner = cube.creator == req.user._id
@@ -92,8 +93,13 @@ router.get('/register', isGuest, (req, res) => {
 })
 
 router.post('/register', isGuest, async (req, res) => {
+    const isStrongPassword = validator.isStrongPassword(req.body.password,
+        { minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1 })
 
     try {
+        if(!isStrongPassword){
+            throw {message:'You shold choise strong password!'}
+        }
         const savedUser = await authService.registerUserToDb(req.body)
         res.render('loginPage');
     } catch (err) {
