@@ -93,7 +93,13 @@ router.get('/register', isGuest, (req, res) => {
 })
 
 router.post('/register', isGuest, async (req, res) => {
-   
+    const isStrongPassword = validator.isStrongPassword(req.body.password,
+        { minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1 })
+
+    try {
+        if (!isStrongPassword) {
+            throw { message: 'You shold choise strong password!' }
+        };
 
         const savedUser = await authService.registerUserToDb(req.body)
         res.render('loginPage');
@@ -145,7 +151,7 @@ router.post('/edit/:id', isAuthenticated, async (req, res) => {
 
 router.get('/delete/:productId', isAuthenticated, async (req, res) => {
     const cube = await serviceManager.getOne(req.params.productId);
-    
+
     if (cube.creator != req.user._id) {
 
         res.redirect('/')
