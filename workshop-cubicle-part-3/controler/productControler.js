@@ -116,9 +116,10 @@ router.post('/login', isGuest, async (req, res) => {
     try {
         const token = await authService.loginUser(req.body);
         res.cookie('SESSION', token);
-        res.redirect('/')
+        res.redirect('/');
+
     } catch (error) {
-        res.render('loginPage', { error })
+        res.render('loginPage', { error });
     }
 })
 
@@ -144,11 +145,12 @@ router.get('/edit/:productId', isAuthenticated, async (req, res) => {
 router.post('/edit/:id', isAuthenticated, async (req, res) => {
 
     await CubeModel.findByIdAndUpdate({ _id: req.params.id }, { ...req.body });
-    res.redirect(`/details/${req.params.id}`)
+    res.redirect(`/details/${req.params.id}`);
 });
 
 router.get('/delete/:productId', isAuthenticated, async (req, res) => {
     const cube = await serviceManager.getOne(req.params.productId);
+    
     if (cube.creator != req.user._id) {
 
         res.redirect('/')
@@ -159,8 +161,14 @@ router.get('/delete/:productId', isAuthenticated, async (req, res) => {
 });
 
 router.post('/delete/:id', isAuthenticated, async (req, res) => {
+    try {
+        await CubeModel.findByIdAndDelete({ _id: req.params.id });
 
-    await CubeModel.findByIdAndDelete({ _id: req.params.id });
+    } catch (error) {
+
+        console.log(err)
+    }
+
     res.redirect(`/`)
 });
 
